@@ -48,7 +48,8 @@ public:
   static constexpr uint64_t response_flag_mask = 0x8000000000000000;
   static constexpr uint64_t answered_flag_mask = 0x4000000000000000;
   static constexpr uint64_t high_prioity_flag_mask = 0x2000000000000000;
-  static constexpr uint64_t request_id_mask = 0x1FFFFFFFFFFFFFFF;
+  static constexpr uint64_t flow_controlled_flag_mask = 0x2000000000000000;
+  static constexpr uint64_t request_id_mask = 0x0FFFFFFFFFFFFFFF;
 
   constexpr message_id() : value_(0) {
     // nop
@@ -82,6 +83,10 @@ public:
 
   inline bool is_high_priority() const {
     return (value_ & high_prioity_flag_mask) != 0;
+  }
+
+  inline bool is_flow_controlled() const {
+    return (value_ & flow_controlled_flag_mask) != 0;
   }
 
   inline bool valid() const {
